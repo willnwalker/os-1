@@ -1,0 +1,5 @@
+Version 0.1:
+	Forked MikeOS into first release of OS-1
+
+Version 0.2:
+	Ported "Shutdown" command from TachyonOS to OS-1

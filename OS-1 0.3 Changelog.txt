@@ -3,3 +3,6 @@ Version 0.1:
 
 Version 0.2:
 	Ported "Shutdown" command from TachyonOS to OS-1
+
+Version 0.3 (6/20/14):
+	Removed "Press Any Key to Continue" after BASIC program finishes

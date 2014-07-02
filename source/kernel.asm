@@ -12,7 +12,7 @@
 
 	BITS 16
 
-	%DEFINE OS1_VER '0.2'	; OS version number
+	%DEFINE OS1_VER '0.3'	; OS version number
 	%DEFINE MIKEOS_API_VER 16	; API version for programs to check
 
 
@@ -316,10 +316,6 @@ not_bin_extension:
 	mov ax, 32768
 	mov si, 0			; No params to pass
 	call os_run_basic		; And run our BASIC interpreter on the code!
-
-	mov si, basic_finished_msg
-	call os_print_string
-	call os_wait_for_key
 
 	call os_clear_screen
 	jmp app_selector		; and go back to the program list

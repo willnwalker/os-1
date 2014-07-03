@@ -6,3 +6,8 @@ Version 0.2:
 
 Version 0.3 (6/20/14):
 	Removed "Press Any Key to Continue" after BASIC program finishes
+	
+Version 0.3.1 (7/3/14):
+	Added Windows Build Script
+	Deleted Tachyon OS Disk Image
+	Deleted Tachyon QEMU Scripts

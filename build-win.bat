@@ -7,7 +7,7 @@ cd source\bootload
 nasm -O0 -f bin -o bootload.bin bootload.asm
 cd ..
 
-echo Assembling MikeOS kernel...
+echo Assembling OS-1 kernel...
 nasm -O0 -f bin -o kernel.bin kernel.asm
 
 echo Assembling programs...
@@ -19,11 +19,11 @@ cd ..
 
 echo Adding bootsector to disk image...
 cd disk_images
-partcopy ..\source\bootload\bootload.bin 0 200 mikeos.flp 0
+partcopy ..\source\bootload\bootload.bin os1.flp 0d 200h
 cd ..
 
 echo Mounting disk image...
-imdisk -a -f disk_images\mikeos.flp -s 1440K -m B:
+imdisk -a -f disk_images\os1.flp -s 1440K -m B:
 
 echo Copying kernel and applications to disk image...
 copy source\kernel.bin b:\

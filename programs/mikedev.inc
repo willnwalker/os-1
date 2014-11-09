@@ -129,21 +129,8 @@ os_get_random		equ	00B7h	; IN: AX, BX = low, high; OUT: CX = num
 os_bcd_to_int		equ	0051h	; AL = BCD number, returns AX = integer
 os_long_int_negate	equ	0081h	; DX:AX = number
 
-
-; Ports
-
-os_port_byte_out	equ	00C9h	; IN: DX = port, AL = byte
-os_port_byte_in		equ	00CCh	; IN: DX = port; OUT: AL = byte
-os_serial_port_enable	equ	00BDh	; AX = 0 for 9600 baud, 1 for 1200
-os_send_via_serial	equ	0060h	; AL = byte to send
-os_get_via_serial	equ	0063h	; Returns AL = byte received
-					; OUT: AX = location, or 0 if not found
-
-
 ; Misc OS functions
 
-os_run_basic		equ	00C6h	; AX = code location in RAM, BX = size,
-					; SI = parameter string (or 0 if none)
 os_get_api_version	equ	0057h	; Returns API version in AL
 os_pause		equ	0024h	; AX = 10ths of second to wait
 os_fatal_error		equ	0027h	; AX = error string location

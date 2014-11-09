@@ -144,9 +144,9 @@ get_cmd:				; Main processing loop
 	call os_string_compare
 	jc bin_file
 
-	mov di, bas_extension		; Or is there a .BAS extension?
-	call os_string_compare
-	jc bas_file
+	;mov di, bas_extension		; Or is there a .BAS extension?
+	;call os_string_compare
+	;jc bas_file
 
 	jmp no_extension
 
@@ -178,18 +178,18 @@ execute_bin:
 
 
 
-bas_file:
-	mov ax, command
-	mov bx, 0
-	mov cx, 32768
-	call os_load_file
-	jc total_fail
-
-	mov ax, 32768
-	mov word si, [param_list]
-	call os_run_basic
-
-	jmp get_cmd
+;bas_file:
+;	mov ax, command
+;	mov bx, 0
+;	mov cx, 32768
+;	call os_load_file
+;	jc total_fail
+;
+;	mov ax, 32768
+;	mov word si, [param_list]
+;	call os_run_basic
+;
+;	jmp get_cmd
 
 
 
@@ -210,26 +210,26 @@ no_extension:
 	mov bx, 0
 	mov cx, 32768
 	call os_load_file
-	jc try_bas_ext
+	;jc try_bas_ext
 
 	jmp execute_bin
 
 
-try_bas_ext:
-	mov ax, command
-	call os_string_length
-
-	mov si, command
-	add si, ax
-	sub si, 4
-
-	mov byte [si], '.'
-	mov byte [si+1], 'B'
+;try_bas_ext:
+;	mov ax, command
+;	call os_string_length
+;
+;	mov si, command
+;	add si, ax
+;	sub si, 4
+;
+;	mov byte [si], '.'
+;	mov byte [si+1], 'B'
 	mov byte [si+2], 'A'
-	mov byte [si+3], 'S'
-	mov byte [si+4], 0
-
-	jmp bas_file
+;	mov byte [si+3], 'S'
+;	mov byte [si+4], 0
+;
+;	jmp bas_file
 
 
 
@@ -592,8 +592,13 @@ apmvererr:
 hello:
 	mov word si, [param_list]
 	call os_string_parse
+	
+	cmp ax, 0			; Was a string provided?
+	jne get_cmd
+	
 	mov si, ax
 	call os_print_string
+	call os_print_newline
 	jmp get_cmd			; Return to Operating System
 
 ; ------------------------------------------------------------------

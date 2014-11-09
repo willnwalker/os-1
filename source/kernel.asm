@@ -65,8 +65,6 @@ os_call_vectors:
 	jmp os_get_api_version		; 0057h
 	jmp os_file_selector		; 005Ah
 	jmp os_get_date_string		; 005Dh
-	jmp os_send_via_serial		; 0060h
-	jmp os_get_via_serial		; 0063h
 	jmp os_find_char_in_string	; 0066h
 	jmp os_get_cursor_pos		; 0069h
 	jmp os_print_space		; 006Ch
@@ -96,12 +94,9 @@ os_call_vectors:
 	jmp os_draw_block		; 00B4h
 	jmp os_get_random		; 00B7h
 	jmp os_string_charchange	; 00BAh
-	jmp os_serial_port_enable	; 00BDh
 	jmp os_sint_to_string		; 00C0h
 	jmp os_string_parse		; 00C3h
-	jmp os_run_basic		; 00C6h
-	jmp os_port_byte_out		; 00C9h
-	jmp os_port_byte_in		; 00CCh
+
 	jmp os_string_tokenize		; 00CFh
 
 
@@ -150,7 +145,7 @@ no_change:
 
 	mov ax, autorun_bin_file_name
 	call os_file_exists
-	jc no_autorun_bin		; Skip next three lines if AUTORUN.BIN doesn't exist
+	jc option_screen		; Skip next three lines if AUTORUN.BIN doesn't exist
 
 	mov cx, 32768			; Otherwise load the program into RAM...
 	call os_load_file
@@ -159,18 +154,18 @@ no_change:
 
 	; Or perhaps there's an AUTORUN.BAS file?
 
-no_autorun_bin:
-	mov ax, autorun_bas_file_name
-	call os_file_exists
-	jc option_screen		; Skip next section if AUTORUN.BAS doesn't exist
-
-	mov cx, 32768			; Otherwise load the program into RAM
-	call os_load_file
-	call os_clear_screen
-	mov ax, 32768
-	call os_run_basic		; Run the kernel's BASIC interpreter
-
-	jmp app_selector		; And go to the app selector menu when BASIC ends
+;no_autorun_bin:
+;	mov ax, autorun_bas_file_name
+;	call os_file_exists
+;	jc option_screen		; Skip next section if AUTORUN.BAS doesn't exist
+;
+;	mov cx, 32768			; Otherwise load the program into RAM
+;	call os_load_file
+;	call os_clear_screen
+;	mov ax, 32768
+;	call os_run_basic		; Run the kernel's BASIC interpreter
+;
+;	jmp app_selector		; And go to the app selector menu when BASIC ends
 
 
 	; Now we display a dialog box offering the user a choice of
@@ -251,7 +246,7 @@ app_selector:
 	mov di, bin_ext
 	mov cx, 3
 	rep cmpsb			; Are final 3 chars 'BIN'?
-	jne not_bin_extension		; If not, it might be a '.BAS'
+	jne not_bas_extension		; If not, it might be a '.BAS'
 
 	pop si				; Restore filename
 
@@ -289,42 +284,42 @@ no_kernel_execute:			; Warn about trying to executing kernel!
 	jmp app_selector		; Start over again...
 
 
-not_bin_extension:
-	pop si				; We pushed during the .BIN extension check
-
-	push si				; Save it again in case of error...
-
-	mov bx, si
-	mov ax, si
-	call os_string_length
-
-	mov si, bx
-	add si, ax			; SI now points to end of filename...
-
-	dec si
-	dec si
-	dec si				; ...and now to start of extension!
-
-	mov di, bas_ext
-	mov cx, 3
-	rep cmpsb			; Are final 3 chars 'BAS'?
-	jne not_bas_extension		; If not, error out
-
-
-	pop si
-
-	mov ax, si
-	mov cx, 32768			; Where to load the program file
-	call os_load_file		; Load filename pointed to by AX
-
-	call os_clear_screen		; Clear screen before running
-
-	mov ax, 32768
-	mov si, 0			; No params to pass
-	call os_run_basic		; And run our BASIC interpreter on the code!
-
-	call os_clear_screen
-	jmp app_selector		; and go back to the program list
+;not_bin_extension:
+;	pop si				; We pushed during the .BIN extension check
+;
+;	push si				; Save it again in case of error...
+;
+;	mov bx, si
+;	mov ax, si
+;	call os_string_length
+;
+;	mov si, bx
+;	add si, ax			; SI now points to end of filename...
+;
+;	dec si
+;	dec si
+;	dec si				; ...and now to start of extension!
+;
+;	mov di, bas_ext
+;	mov cx, 3
+;	rep cmpsb			; Are final 3 chars 'BAS'?
+;	jne not_bas_extension		; If not, error out
+;
+;
+;	pop si
+;
+;	mov ax, si
+;	mov cx, 32768			; Where to load the program file
+;	call os_load_file		; Load filename pointed to by AX
+;
+;	call os_clear_screen		; Clear screen before running
+;
+;	mov ax, 32768
+;	mov si, 0			; No params to pass
+;	call os_run_basic		; And run our BASIC interpreter on the code!
+;
+;	call os_clear_screen
+;	jmp app_selector		; and go back to the program list
 
 
 not_bas_extension:
@@ -381,11 +376,9 @@ not_bas_extension:
 	%INCLUDE "features/keyboard.asm"
 	%INCLUDE "features/math.asm"
 	%INCLUDE "features/misc.asm"
-	%INCLUDE "features/ports.asm"
 	%INCLUDE "features/screen.asm"
 	%INCLUDE "features/sound.asm"
 	%INCLUDE "features/string.asm"
-	%INCLUDE "features/basic.asm"
 
 
 ; ==================================================================

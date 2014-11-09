@@ -421,8 +421,8 @@ text_entry:
 	cmp ax, 3F00h				; F5 pressed?
 	je near .f5_pressed
 
-	cmp ax, 4200h				; F8 pressed?
-	je near .f8_pressed
+	;cmp ax, 4200h				; F8 pressed?
+	;je near .f8_pressed
 
 	cmp ah, 53h				; Delete?
 	je near .delete_pressed
@@ -591,26 +591,26 @@ text_entry:
 
 
 
-.f8_pressed:				; Run BASIC
-	mov word ax, [filesize]
-	cmp ax, 4
-	jl .not_big_enough
-
-	call os_clear_screen
-
-	mov ax, 36864
-	mov si, 0
-	mov word bx, [filesize]
-
-	call os_run_basic
-
-	call os_print_newline
-	mov si, .basic_finished_msg
-	call os_print_string
-	call os_wait_for_key
-
-	popa
-	jmp render_text
+;.f8_pressed:				; Run BASIC
+;	mov word ax, [filesize]
+;	cmp ax, 4
+;	jl .not_big_enough
+;
+;	call os_clear_screen
+;
+;	mov ax, 36864
+;	mov si, 0
+;	mov word bx, [filesize]
+;
+;	call os_run_basic
+;
+;	call os_print_newline
+;	mov si, .basic_finished_msg
+;	call os_print_string
+;	call os_wait_for_key
+;
+;	popa
+;	jmp render_text
 
 
 .not_big_enough:
@@ -850,8 +850,8 @@ showbytepos:
 ; ------------------------------------------------------------------
 ; Data section
 
-	txt_title_msg	db 'MikeOS Text Editor', 0
-	txt_footer_msg	db '[Esc] Quit  [F1] Help  [F2] Save  [F3] New  [F5] Delete line  [F8] Run BASIC', 0
+	txt_title_msg	db 'OS-1 Text Editor', 0
+	txt_footer_msg	db '[Esc] Quit  [F1] Help  [F2] Save  [F3] New  [F5] Delete line', 0
 
 	txt_extension	db 'TXT', 0
 	bas_extension	db 'BAS', 0

@@ -594,7 +594,7 @@ hello:
 	call os_string_parse
 	
 	cmp ax, 0			; Was a string provided?
-	jne get_cmd
+	je get_cmd
 	
 	mov si, ax
 	call os_print_string

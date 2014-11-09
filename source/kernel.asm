@@ -177,6 +177,12 @@ no_autorun_bin:
 	; a menu-driven program selector, or a command-line interface
 
 option_screen:
+
+	mov ah, 0Bh
+	mov bh, 00h
+	mov bl, 00000001b
+	int 10h
+
 	mov ax, os_init_msg		; Set up the welcome screen
 	mov bx, os_version_msg
 	mov cx, 10011111b		; Colour: white text on light blue

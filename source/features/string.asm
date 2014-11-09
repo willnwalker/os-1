@@ -422,7 +422,7 @@ os_string_strincmp:
 
 os_string_parse:
 	push si
-	
+
 	mov ax, si			; AX = start of first string
 
 	mov bx, 0			; By default, other strings start empty

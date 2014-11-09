@@ -8,12 +8,6 @@
 
 
 os_command_line:
-
-	mov ah, 0Bh
-	mov bh, 00h
-	mov bl, 00000001b
-	int 10h
-	
 	call os_clear_screen
 
 	mov si, version_msg
@@ -114,13 +108,10 @@ get_cmd:				; Main processing loop
 	call os_string_compare
 	jc near size_file
 
-	mov di, shutdown_string	; 'SHUTDOWN' entered?
+	mov di, shutdown_string		; 'SHUTDOWN' entered?
 	call os_string_compare
-	jc near shutdown
-	
-	mov di, hello_string    ; 'HELLO' entered?
-	call os_string_compare
-	jc near hello
+	jc shutdown
+
 
 	; If the user hasn't entered any of the above commands, then we
 	; need to check for an executable file -- .BIN or .BAS, and the
@@ -589,15 +580,6 @@ apmvererr:
 	
 ; ------------------------------------------------------------------
 
-hello:
-	mov word si, [param_list]
-	call os_string_parse
-	mov si, ax
-	call os_print_string
-	jmp get_cmd			; Return to Operating System
-
-; ------------------------------------------------------------------
-
 exit:
 	ret
 
@@ -618,11 +600,11 @@ exit:
 
 	prompt			db '> ', 0
 
-	help_text		db 'Commands: DIR, COPY, REN, DEL, CAT, SIZE, CLS, HELP, TIME, DATE, VER, EXIT, SHUTDOWN, HELLO', 13, 10, 0
+	help_text		db 'Commands: DIR, COPY, REN, DEL, CAT, SIZE, CLS, HELP, TIME, DATE, VER, EXIT, SHUTDOWN', 13, 10, 0
 	invalid_msg		db 'No such command or program', 13, 10, 0
-	nofilename_msg	db 'No filename or not enough filenames', 13, 10, 0
-	notfound_msg	db 'File not found', 13, 10, 0
-	writefail_msg	db 'Could not write file. Write protected or invalid filename?', 13, 10, 0
+	nofilename_msg		db 'No filename or not enough filenames', 13, 10, 0
+	notfound_msg		db 'File not found', 13, 10, 0
+	writefail_msg		db 'Could not write file. Write protected or invalid filename?', 13, 10, 0
 	exists_msg		db 'Target file already exists!', 13, 10, 0
 
 	version_msg		db 'OS-1 ', OS1_VER, 13, 10, 0
@@ -639,13 +621,12 @@ exit:
 	ren_string		db 'REN', 0
 	copy_string		db 'COPY', 0
 	size_string		db 'SIZE', 0
-	shutdown_string db 'SHUTDOWN', 0
-	hello_string    db 'HELLO', 0
-	connecterr_msg	db 'Failure to connect to APM', 0
-	apmvererr_msg	db 'Requires APM v1.2', 0
+	shutdown_string 	db 'SHUTDOWN', 0
+	connecterr_msg		db 'Failure to connect to APM', 0
+	apmvererr_msg		db 'Requires APM v1.2', 0
 
-	kern_file_string db 'KERNEL', 0
-	kern_warn_msg   db 'Cannot execute kernel file as program!', 13, 10, 0
+	kern_file_string	db 'KERNEL', 0
+	kern_warn_msg		db 'Cannot execute kernel file as program!', 13, 10, 0
 
 
 ; ==================================================================

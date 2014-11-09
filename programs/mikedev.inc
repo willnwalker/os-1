@@ -129,6 +129,7 @@ os_get_random		equ	00B7h	; IN: AX, BX = low, high; OUT: CX = num
 os_bcd_to_int		equ	0051h	; AL = BCD number, returns AX = integer
 os_long_int_negate	equ	0081h	; DX:AX = number
 
+
 ; Misc OS functions
 
 os_get_api_version	equ	0057h	; Returns API version in AL

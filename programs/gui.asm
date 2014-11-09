@@ -5,6 +5,11 @@ ORG 32768
 
 call os_clear_screen
 call mouselib_setup
+mov ax, 0
+mov bx, 0
+mov cx, 0
+mov dx, 24
+call mouselib_range
 mov si, terminal
 call os_print_string
 
@@ -23,9 +28,6 @@ keypress:
 terminal_cmp:
 	cmp DX, 0
 	jnz main
-	cmp CX, 1
-	jnz main
-	
 	call mouselib_remove_driver
 	call os_clear_screen
 	ret
@@ -33,4 +35,4 @@ exit:
 	call mouselib_remove_driver
 	ret
 
-terminal db 'RET', 0
+terminal db '*RET', 0

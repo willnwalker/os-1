@@ -59,7 +59,8 @@ rm -rf tmp-loop
 mkdir tmp-loop && mount -o loop -t vfat disk_images/os1.flp tmp-loop && cp source/kernel.bin tmp-loop/
 
 cp programs/*.bin programs/*.bas programs/sample.pcx tmp-loop
-cp README.TXT tmp-loop
+cp EMPTY.TXT tmp-loop
+cp programs/*.lib tmp-loop
 
 sleep 0.2
 

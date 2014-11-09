@@ -31,6 +31,7 @@ copy programs\*.bin b:\
 copy programs\sample.pcx b:\
 copy programs\*.bas b:\
 copy EMPTY.TXT b:\
+copy programs\*.lib b:\
 
 echo Dismounting disk image...
 imdisk -D -m B:

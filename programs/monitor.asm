@@ -7,7 +7,7 @@
 
 
 	BITS 16
-	%INCLUDE "mikedev.inc"
+	%INCLUDE "os1dev.inc"
 	ORG 32768
 
 

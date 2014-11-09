@@ -17,7 +17,6 @@ os_main			equ	0000h	; Where the OS code starts
 %DEFINE WHITE_ON_GREEN		00101111b
 %DEFINE RED_ON_LIGHT_GREEN	10100100b
 
-
 ; ------------------------------------------------------------------
 ; KEYS
 
@@ -28,7 +27,6 @@ os_main			equ	0000h	; Where the OS code starts
 
 %DEFINE KEY_ESC		27
 %DEFINE KEY_ENTER	13
-
 
 ; ------------------------------------------------------------------
 ; SYSTEM CALLS

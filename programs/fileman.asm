@@ -1,10 +1,10 @@
 ; ------------------------------------------------------------------
-; Simple file manager for MikeOS: copy, delete and rename files
+; Simple file manager for OS-1: copy, delete and rename files
 ; ------------------------------------------------------------------
 
 
 	BITS 16
-	%INCLUDE "mikedev.inc"
+	%INCLUDE "os1dev.inc"
 	ORG 32768
 
 

@@ -30,6 +30,7 @@ copy source\kernel.bin b:\
 copy programs\*.bin b:\
 copy programs\sample.pcx b:\
 copy programs\*.bas b:\
+copy README.TXT b:\
 
 echo Dismounting disk image...
 imdisk -D -m B:

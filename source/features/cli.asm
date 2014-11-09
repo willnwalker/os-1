@@ -374,6 +374,7 @@ cat_file:
 	cmp bx, 0			; End of file?
 	jne .loop
 
+	call os_print_newline
 	jmp get_cmd
 
 .not_found:

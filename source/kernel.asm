@@ -12,7 +12,7 @@
 
 	BITS 16
 
-	%DEFINE OS1_VER '0.4.4'	; OS version number
+	%DEFINE OS1_VER '0.4.5'	; OS version number
 	%DEFINE MIKEOS_API_VER 16	; API version for programs to check
 
 

@@ -30,7 +30,7 @@ copy source\kernel.bin b:\
 copy programs\*.bin b:\
 copy programs\sample.pcx b:\
 copy programs\*.bas b:\
-copy EMPTY.TXT b:\
+copy *.txt b:\
 copy programs\*.lib b:\
 
 echo Dismounting disk image...

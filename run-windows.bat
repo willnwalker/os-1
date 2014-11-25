@@ -1,1 +1,1 @@
-qemu-system-x86_64 -L qemu -m 4 -boot a -fda disk_images\os1.flp -soundhw all -localtime
+qemu-system-x86_64 disk_images\os1.flp

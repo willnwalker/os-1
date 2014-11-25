@@ -1,8 +1,0 @@
-useful scripts:
-chown -R william disk_images (need sudo bash first)
-nmap
-netcat
-aircrack-ng
-rm -r foldername: delete folder
-sudo apt-get -f install: update dependencies (mostly used for gchrome)
-chmod 0755 FlashRasPiSDCard.sh make script executable
